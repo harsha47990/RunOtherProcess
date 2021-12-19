@@ -1,7 +1,6 @@
 D:\others\Laharika\RunOtherProcess\bin\Debug\RunOtherProcess.exe.config
 D:\others\Laharika\RunOtherProcess\bin\Debug\RunOtherProcess.exe
 D:\others\Laharika\RunOtherProcess\bin\Debug\RunOtherProcess.pdb
-D:\others\Laharika\RunOtherProcess\obj\Debug\RunOtherProcess.csproj.AssemblyReference.cache
 D:\others\Laharika\RunOtherProcess\obj\Debug\RunOtherProcess.csproj.CoreCompileInputs.cache
 D:\others\Laharika\RunOtherProcess\obj\Debug\RunOtherProcess.exe
 D:\others\Laharika\RunOtherProcess\obj\Debug\RunOtherProcess.pdb
