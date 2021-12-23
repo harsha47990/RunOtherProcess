@@ -13,44 +13,43 @@ namespace RunOtherProcess
 {
     class Program
     {
-        [DllImport("user32.dll")]
-        static extern int SetForegroundWindow(IntPtr point);
+
+        [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
+        public static extern IntPtr FindWindow(String lpClassName, String lpWindowName);
+
+        [DllImport("USER32.DLL")]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
+
         static void Main(string[] args)
         {
+
             string ProcessName = ConfigurationManager.AppSettings["ProcessName"].ToString();
+            string WindowName = ConfigurationManager.AppSettings["WindowName"].ToString();
             string Steps = ConfigurationManager.AppSettings["Steps"].ToString();
 
             Process p = Process.Start(ProcessName);
+            Thread.Sleep(5000);
             p.WaitForInputIdle();
 
-            //try keeping it on top window
             try
             {
-                IntPtr h = p.MainWindowHandle;
-                SetForegroundWindow(h);
-            }
-            catch(Exception ex) {
-                Console.WriteLine(ex.Message);
-            }
-            
-            //Send keys
-            foreach (string s in Steps.Split(','))
-            {
-                SendKeys.SendWait(s);
-                Thread.Sleep(1000);
-            }
-
-            //wait untill process completes and closes the application
-            while (true)
-            {
-                if (p.WaitForInputIdle())
+                IntPtr handle = FindWindow(null, WindowName);
+                if (handle == IntPtr.Zero)
                 {
-                    SendKeys.SendWait("%{F4}");
-                    p.WaitForExit(5000);
                     return;
                 }
+                SetForegroundWindow(handle);
+          
+                foreach (string s in Steps.Split(','))
+                {
+                    SendKeys.SendWait(s);
+                    Thread.Sleep(1000);
+                }
             }
-
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            } 
 
 
         }
